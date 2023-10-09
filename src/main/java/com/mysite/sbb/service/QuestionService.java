@@ -39,7 +39,11 @@ public class QuestionService {
     public Question getQuestion(Integer id){
         Optional<Question> question = this.questionRepository.findById(id);
         if(question.isPresent()){
-            return question.get();
+            Question q1 = question.get();
+            int v = q1.getView()+1;
+            q1.setView(v);
+            this.questionRepository.save(q1);
+            return q1;
         }else{
             throw new DataNotFoundException("question not found");
         }
